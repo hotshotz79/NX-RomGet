@@ -4,6 +4,7 @@ Download ROMs directly on the switch from user provided list (.txt)
 
 Requires: [PyNx](https://github.com/nx-python/Pynx)
 
+**Touch** support only
 
 # Guide:
 
