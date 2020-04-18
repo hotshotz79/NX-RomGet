@@ -2,9 +2,7 @@
 
 Download ROMs directly on the switch from user provided list (.txt)
 
-Requires: PyNx
-
-https://github.com/nx-python/Pynx
+Requires: [PyNx](https://github.com/nx-python/Pynx)
 
 
 # Guide:
@@ -20,3 +18,11 @@ https://github.com/nx-python/Pynx
     Ex; "Sonic 3 (USA);http://link.com/Sonic3.zip"
    
  **NOTE:** HTTPS link will give error, so try to rename to HTTP
+
+# Screenshots:
+
+![Main screen](Screenshots/NXRG-main.jpg)
+
+![Title screen](Screenshots/NXRG-titles.jpg)
+
+![Download screen](Screenshots/NXRG-download.jpg)
