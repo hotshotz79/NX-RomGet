@@ -59,8 +59,8 @@ def start(filename, url, consolefolder, extract):
     _nx.gfx_set_mode(TILED_DOUBLE)
     clear_terminal()
     
-    # filename = urllib.parse.unquote(url.split('/')[-1])
-    zippath = filename + ".zip"
+    full_file = urllib.parse.unquote(url.split('/')[-1])
+    # zippath = filename + ".zip"
     print("-------------------------------------------------------------------------------")
     print("\n            _   _ __   __     ______                _____      _   " +
             "\n           | \ | |\ \ / /     | ___ \              |  __ \    | |  " +
@@ -73,27 +73,28 @@ def start(filename, url, consolefolder, extract):
     print("\n[Download Path] sdmc:/Roms/" + consolefolder + "/")
     print("\n-------------------------------------------------------------------------------\n")
     print("Download Progress:\n")
-    urllib.request.urlretrieve(url, "sdmc:/Roms/" + consolefolder + "/" + zippath, reporthook)
+    urllib.request.urlretrieve(url, "sdmc:/Roms/" + consolefolder + "/" + full_file, reporthook)
     print("\n\n File Downloaded")
     
     # Extraction Section
-    if extract:
-        print("\n-------------------------------------------------------------------------------\n")
-        print("\n[Extraction Path] sdmc:/Roms/" + consolefolder + "/" + filename + "/")
-        print("Extraction Progress:\n")
-        path_to_extract = "sdmc:/Roms/" + consolefolder + "/" + filename
-        zf = zipfile.ZipFile("sdmc:/Roms/" + consolefolder + "/" + zippath)
-        uncompress_size = sum((file.file_size for file in zf.infolist()))
-        extracted_size = 0
+    if full_file.endswith(".zip"):
+        if extract:
+            print("\n-------------------------------------------------------------------------------\n")
+            print("\n[Extraction Path] sdmc:/Roms/" + consolefolder + "/" + filename + "/")
+            print("Extraction Progress:\n")
+            path_to_extract = "sdmc:/Roms/" + consolefolder + "/" + filename
+            zf = zipfile.ZipFile("sdmc:/Roms/" + consolefolder + "/" + zippath)
+            uncompress_size = sum((file.file_size for file in zf.infolist()))
+            extracted_size = 0
 
-        i = len(zf.infolist())
-        x = 1
+            i = len(zf.infolist())
+            x = 1
 
-        for file in zf.infolist():
-            extracted_size += file.file_size
-            print("Extracting " + str(x) + " of " + str(i) + ": " + file.filename + " | Size: " + str(file.file_size / 1000000)[0:5] + " MB | Progress: " + str((extracted_size * 100/uncompress_size))[0:3] + "%")
-            zf.extractall(path_to_extract)
-            x += 1
+            for file in zf.infolist():
+                extracted_size += file.file_size
+                print("Extracting " + str(x) + " of " + str(i) + ": " + file.filename + " | Size: " + str(file.file_size / 1000000)[0:5] + " MB | Progress: " + str((extracted_size * 100/uncompress_size))[0:3] + "%")
+                zf.extractall(path_to_extract)
+                x += 1
 
     imguihelper.initialize()
 
@@ -123,7 +124,7 @@ def romList(console_selected):
         imgui.text(console_selected.upper())
         
         # TODO
-        # ADD Checkbox for "Extract ZIP" & "Delete ZIP"
+        # ADD Checkbox for "Delete ZIP after Extract"
         
         # Create Selected Systems Directory
         directory = console_selected
